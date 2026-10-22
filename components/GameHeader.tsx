@@ -8,7 +8,6 @@ import {
   Check,
   BookOpen,
   User as UserIcon,
-  Flame,
   Swords
 } from 'lucide-react';
 import { BoardTheme, getRankTier } from '@/lib/xiangqi-types';
@@ -39,15 +38,8 @@ interface GameHeaderProps {
 }
 
 export const GameHeader: React.FC<GameHeaderProps> = React.memo(({
-  variant = 'standard',
-  onToggleVariant,
-  theme,
   colorMode = 'dark',
-  onToggleTheme,
   onToggleColorMode,
-  isMuted,
-  onToggleMute,
-  onFlipBoard,
   onShareRoom,
   copiedShareLink,
   onOpenOpeningBook,
@@ -60,58 +52,71 @@ export const GameHeader: React.FC<GameHeaderProps> = React.memo(({
   userName,
   isOnlineGame
 }) => {
-  const rankTier = getRankTier(userElo);
   const isDark = colorMode === 'dark';
+  const rankTier = getRankTier(userElo, isDark);
 
   return (
     <header
-      className={`relative w-full max-w-5xl mx-auto mb-3 flex items-center justify-between gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-2xl border shadow-xl backdrop-blur-md transition-colors overflow-hidden ${
+      className={`w-full max-w-5xl mx-auto mb-3 flex items-center justify-between gap-4 sm:gap-8 px-3 sm:px-5 py-2.5 rounded-xl border transition-colors ${
         isDark
-          ? 'bg-[#151a24]/92 border-[#2b354b] text-neutral-100'
-          : 'bg-[#faf6ee]/95 border-[#d6cbba] text-neutral-900 shadow-stone-300/40'
+          ? 'bg-[#151C28] border-[#232D3F] text-slate-100'
+          : 'bg-white border-slate-200 text-slate-900 shadow-2xs'
       }`}
     >
-      {/* Brand logo & title */}
-      <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink">
-        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-500 via-amber-600 to-amber-800 p-0.5 shadow-md flex items-center justify-center shrink-0">
-          <div className="w-full h-full bg-[#171a22] rounded-[10px] flex items-center justify-center">
-            <span className="font-piece font-bold text-amber-400 text-base sm:text-xl" style={{ fontFamily: '"Iansui", "Ma Shan Zheng", "Zhi Mang Xing", "LXGW WenKai TC", "STKaiti", "KaiTi", "Kaiti SC", "BiauKai", "DFKai-SB", "ZCOOL XiaoWei", "Noto Serif SC", cursive, serif' }}>將</span>
-          </div>
-        </div>
-        <div className="min-w-0 hidden md:block overflow-hidden">
-          <h1
-            className={`font-heading font-bold text-sm lg:text-lg tracking-wide truncate flex items-center gap-1.5 ${
-              isDark ? 'text-amber-200' : 'text-amber-900'
-            }`}
+      {/* Zone 1: Single-line Brand Wordmark */}
+      <div className="flex items-center gap-2.5 whitespace-nowrap shrink-0">
+        <div
+          className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${
+            isDark
+              ? 'bg-[#0E131B] border-amber-500/40 text-amber-400'
+              : 'bg-amber-50 border-amber-600/30 text-amber-800'
+          }`}
+        >
+          <span
+            className="font-piece font-bold text-base leading-none"
+            style={{
+              fontFamily:
+                '"Iansui", "Ma Shan Zheng", "Zhi Mang Xing", "LXGW WenKai TC", "STKaiti", "KaiTi", "Kaiti SC", "BiauKai", "DFKai-SB", "ZCOOL XiaoWei", "Noto Serif SC", cursive, serif'
+            }}
           >
-            <span className="truncate">Cờ Tướng Online</span>
-            <span className="text-[11px] font-sans font-semibold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-500 dark:text-amber-300 border border-amber-500/40 hidden lg:inline-block shrink-0">
-              Live
-            </span>
-          </h1>
-          <p className={`text-xs truncate hidden lg:block ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
-            Trí tuệ dân gian · Đấu trí đỉnh cao
-          </p>
+            將
+          </span>
         </div>
+        <span className="font-heading font-bold text-sm sm:text-base tracking-tight whitespace-nowrap shrink-0">
+          Cờ Tướng Master
+        </span>
       </div>
 
-      {/* Action buttons & Utilities: Cờ Úp / Cờ Sáng, Phòng Đấu, Giao diện Sáng/Tối, Đăng nhập & Menu */}
-      <div className="flex items-center gap-1 sm:gap-2 min-w-0 shrink-0">
-        {/* NÚT PHÒNG ĐẤU TRỰC TUYẾN - HIỆN RÕ CHỮ PHÒNG ĐẤU */}
+      {/* Zone 2: Clean Single-Line Navigation & Workspace Utilities */}
+      <nav className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm font-medium shrink-0">
         <button
+          type="button"
           onClick={onOpenOnlineLobby}
-          className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl border font-bold text-xs sm:text-sm transition-all active:scale-95 cursor-pointer shadow-xs shrink-0 ${
+          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
             isDark
-              ? 'bg-gradient-to-r from-red-950/80 via-[#271d2c] to-[#1c2333] hover:from-red-900/90 hover:to-[#263148] border-red-500/50 text-red-100 ring-1 ring-red-500/20'
-              : 'bg-white hover:bg-red-50/90 border-red-400 text-red-700 shadow-xs'
+              ? 'bg-[#0E131B] hover:bg-[#1C2536] border-[#232D3F] text-slate-100'
+              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-800'
           }`}
           title="Phòng Đấu Trực Tuyến & Ghép Cặp"
         >
-          <Swords className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500 shrink-0" />
-          <span className="font-bold tracking-wide whitespace-nowrap">Phòng Đấu</span>
+          <Swords className="w-3.5 h-3.5 text-red-500 shrink-0" />
+          <span>Phòng Đấu</span>
         </button>
 
-        {/* NÚT GIAO DIỆN SÁNG / TỐI (DAY / NIGHT SWITCH) - SÁT NÚT PHÒNG ĐẤU Ở BÊN TRÁI */}
+        <button
+          type="button"
+          onClick={onOpenOpeningBook}
+          className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-medium text-xs transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
+            isDark
+              ? 'bg-[#0E131B] hover:bg-[#1C2536] border-[#232D3F] text-slate-300 hover:text-white'
+              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-900'
+          }`}
+          title="Cẩm nang khai cuộc cờ tướng"
+        >
+          <BookOpen className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+          <span>Khai Cuộc</span>
+        </button>
+
         <div className="flex items-center justify-center shrink-0">
           <DayNightSwitch
             isDark={isDark}
@@ -119,14 +124,15 @@ export const GameHeader: React.FC<GameHeaderProps> = React.memo(({
             size="sm"
           />
         </div>
-        {/* Share Room Button (in online mode) */}
+
         {isOnlineGame && (
           <button
+            type="button"
             onClick={onShareRoom}
-            className={`p-1.5 sm:p-2 rounded-xl border transition-all cursor-pointer shrink-0 ${
+            className={`p-1.5 rounded-lg border transition-colors cursor-pointer shrink-0 ${
               isDark
-                ? 'bg-[#202737] hover:bg-[#2b3449] border-[#34405a] text-neutral-300'
-                : 'bg-white hover:bg-neutral-100 border-[#d8cfbe] text-neutral-700'
+                ? 'bg-[#0E131B] hover:bg-[#1C2536] border-[#232D3F] text-slate-300'
+                : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
             }`}
             title="Sao chép link mời phòng"
           >
@@ -137,58 +143,59 @@ export const GameHeader: React.FC<GameHeaderProps> = React.memo(({
             )}
           </button>
         )}
+      </nav>
 
-        {/* NÚT ĐĂNG NHẬP / HỒ SƠ NGƯỜI CHƠI TRỰC QUAN */}
+      {/* Zone 3: Primary User Action & Settings Trigger */}
+      <div className="flex items-center gap-2 shrink-0">
         {user ? (
           <button
+            type="button"
             onClick={onOpenProfileDrawer}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl border transition-all active:scale-95 cursor-pointer shadow-sm shrink-0 ${
+            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border transition-colors cursor-pointer whitespace-nowrap shrink-0 ${
               isDark
-                ? 'bg-gradient-to-r from-[#21293a] to-[#2b354b] hover:from-[#2a3449] border-amber-500/40 text-neutral-100'
-                : 'bg-white hover:bg-amber-50/50 border-amber-500/40 text-neutral-900'
+                ? 'bg-[#0E131B] hover:bg-[#1C2536] border-[#232D3F] text-slate-100'
+                : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-900'
             }`}
             title="Xem hồ sơ & Lịch sử ván đấu"
           >
-            <div className="w-6 h-6 sm:w-6.5 sm:h-6.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 flex items-center justify-center font-bold text-xs border border-amber-500/50 shrink-0">
-              {userName?.charAt(0).toUpperCase() || <UserIcon className="w-3.5 h-3.5" />}
+            <div className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-semibold text-xs border border-amber-500/40 shrink-0">
+              {userName?.charAt(0).toUpperCase() || <UserIcon className="w-3 h-3" />}
             </div>
-            <div className="text-left hidden md:block py-0.5">
-              <div
-                className={`text-xs sm:text-sm font-bold leading-normal pt-0.5 pb-0.5 truncate max-w-[110px] lg:max-w-[160px] ${
-                  isDark ? 'text-amber-200' : 'text-amber-900'
-                }`}
-              >
-                {userName || 'Kỳ Thủ'}
-              </div>
-              <div className="text-[10px] sm:text-xs text-amber-600 dark:text-amber-400 font-mono flex items-center gap-0.5 leading-normal">
-                <Flame className="w-3 h-3 text-amber-500 shrink-0" />
-                <span>{userElo} · {rankTier.tier}</span>
-              </div>
-            </div>
+            <span className="hidden md:inline text-xs font-semibold truncate max-w-[110px]">
+              {userName || 'Kỳ Thủ'}
+            </span>
+            <span
+              className={`hidden lg:inline text-xs font-mono tabular-nums ${
+                isDark ? 'text-slate-400' : 'text-slate-500'
+              }`}
+            >
+              · {userElo} · {rankTier.tier}
+            </span>
           </button>
         ) : (
           <button
+            type="button"
             onClick={onOpenAuthModal}
-            className="flex items-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-400 hover:to-amber-600 text-white font-bold text-xs sm:text-sm shadow-md shadow-amber-600/25 border border-amber-400/40 transition-all active:scale-95 cursor-pointer shrink-0 whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap shrink-0"
             title="Đăng nhập để lưu điểm Elo và bảng xếp hạng"
           >
-            <UserCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="font-bold tracking-wide">Đăng nhập</span>
+            <UserCircle2 className="w-3.5 h-3.5 shrink-0" />
+            <span>Đăng nhập</span>
           </button>
         )}
 
-        {/* NÚT MENU TỐI GIẢN (3 GẠCH) */}
         <button
+          type="button"
           onClick={onOpenMenu}
-          className={`p-1.5 sm:p-2 rounded-xl border transition-all active:scale-95 cursor-pointer flex items-center justify-center shadow-xs shrink-0 ${
+          className={`p-1.5 rounded-lg border transition-colors cursor-pointer flex items-center justify-center shrink-0 ${
             isDark
-              ? 'bg-[#202737] hover:bg-[#2b3449] border-[#34405a] text-amber-300 hover:text-amber-200'
-              : 'bg-white hover:bg-neutral-100 border-[#d8cfbe] text-neutral-800'
+              ? 'bg-[#0E131B] hover:bg-[#1C2536] border-[#232D3F] text-slate-300 hover:text-white'
+              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-slate-900'
           }`}
           title="Menu cài đặt"
           aria-label="Menu cài đặt"
         >
-          <Menu className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-amber-500 dark:text-amber-400 shrink-0" strokeWidth={2.2} />
+          <Menu className="w-4 h-4 shrink-0" />
         </button>
       </div>
     </header>

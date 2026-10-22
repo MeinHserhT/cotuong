@@ -101,7 +101,7 @@ export default function XiangqiPage() {
   }, [showToast]);
 
   const handlePerpetualCheckWarning = useCallback((count: number, color: PieceColor) => {
-    showToast(`⚠️ Cảnh báo: Bên ${color === 'r' ? 'Đỏ' : 'Đen'} đã chiếu lần thứ ${count} cùng vị trí! Chiếu quá 3 lần sẽ bị tính Hòa.`);
+    showToast(`Cảnh báo: Bên ${color === 'r' ? 'Đỏ' : 'Đen'} đã chiếu lần thứ ${count} cùng vị trí! Chiếu quá 3 lần sẽ bị tính Hòa.`);
   }, [showToast]);
 
   // Start Game Mode Selection Pop-up (opens automatically every time the page is freshly entered)
@@ -719,10 +719,10 @@ export default function XiangqiPage() {
     <div
       suppressHydrationWarning
       data-theme={colorMode}
-      className={`min-h-screen flex flex-col p-2 sm:p-4 select-none overflow-x-hidden font-sans transition-colors duration-300 ${colorMode} ${
+      className={`min-h-screen flex flex-col p-2 sm:p-4 select-none overflow-x-hidden font-sans transition-colors duration-200 ${colorMode} ${
         colorMode === 'dark'
-          ? 'bg-[#11141a] text-neutral-100'
-          : 'bg-gradient-to-b from-[#f7f2ea] via-[#efe6d6] to-[#e4d7c3] text-neutral-900'
+          ? 'bg-[#0E131B] text-slate-100'
+          : 'bg-[#F4F5F7] text-slate-900'
       }`}
     >
       {/* Top Application Header */}
@@ -945,11 +945,11 @@ export default function XiangqiPage() {
         {/* Right Column: Unified Single-Card Game Console */}
         <div
           id="game-console-dock"
-          className={`transition-all duration-500 flex justify-center shrink-0 self-center lg:self-start mx-auto lg:mx-0 rounded-2xl ${
+          className={`transition-all duration-300 flex justify-center shrink-0 self-center lg:self-start mx-auto lg:mx-0 rounded-xl ${
             isConsoleCollapsed ? 'w-auto' : 'w-full max-w-[420px] lg:max-w-[440px]'
           } ${
             consoleDockHighlight
-              ? 'ring-2 ring-amber-400 shadow-[0_0_36px_rgba(245,158,11,0.5)] scale-[1.015]'
+              ? 'ring-2 ring-amber-500 scale-[1.01]'
               : ''
           }`}
         >

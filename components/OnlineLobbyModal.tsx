@@ -206,14 +206,10 @@ export function OnlineLobbyModal({
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
       <div
-        className={`relative w-full max-w-xl rounded-2xl border shadow-2xl flex flex-col max-h-[92vh] overflow-hidden ${
+        className={`relative w-full max-w-xl rounded-xl border shadow-2xl flex flex-col max-h-[92vh] overflow-hidden ${
           isDark
-            ? isZen
-              ? 'border-[#4a4237] bg-gradient-to-b from-[#22201d] via-[#1a1815] to-[#141210] text-slate-100'
-              : 'border-amber-900/50 bg-gradient-to-b from-[#221008] via-[#1a0c06] to-[#120804] text-slate-100'
-            : isZen
-            ? 'border-[#d2c5b2] bg-gradient-to-b from-[#faf6ee] via-[#f4eee2] to-[#ebe1d1] text-neutral-900'
-            : 'border-[#d8cbba] bg-gradient-to-b from-[#fbf8f0] via-[#f5ede0] to-[#ece1cf] text-neutral-900'
+            ? 'border-[#232D3F] bg-[#151C28] text-slate-100'
+            : 'border-slate-200 bg-white text-slate-900'
         }`}
       >
         <div className={`px-5 py-3.5 border-b flex items-center justify-between shrink-0 ${
@@ -458,42 +454,41 @@ export function OnlineLobbyModal({
                                 <span className={`font-bold text-sm truncate ${isDark ? 'text-slate-100' : 'text-neutral-900'}`}>
                                   {room.hostName}
                                 </span>
-                                <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold border ${
+                                <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold border ${
                                   room.variant === 'jieqi'
-                                    ? isDark ? 'bg-rose-950 text-rose-300 border-rose-700/60' : 'bg-red-50 text-red-800 border-red-300'
-                                    : isDark ? 'bg-amber-950 text-amber-300 border-amber-700/60' : 'bg-amber-50 text-amber-900 border-amber-300'
+                                    ? isDark ? 'bg-rose-950/60 text-rose-300 border-rose-700/50' : 'bg-red-50 text-red-800 border-red-200'
+                                    : isDark ? 'bg-amber-950/60 text-amber-300 border-amber-700/50' : 'bg-amber-50 text-amber-900 border-amber-200'
                                 }`}>
-                                  {room.variant === 'jieqi' ? '🎭 Cờ Úp' : '⚔️ Cờ Tướng'}
+                                  {room.variant === 'jieqi' ? 'Cờ Úp' : 'Cờ Ngửa'}
                                 </span>
-                                <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded border ${
+                                <span className={`text-[10px] font-mono tabular-nums px-1.5 py-0.5 rounded border ${
                                   isDark
-                                    ? 'bg-amber-950/80 text-amber-300 border-amber-800/40'
-                                    : 'bg-amber-100 text-amber-900 border-amber-300 font-bold'
+                                    ? 'bg-slate-800 text-amber-300 border-slate-700'
+                                    : 'bg-slate-100 text-amber-900 border-slate-200 font-bold'
                                 }`}>
                                   {room.hostElo} Elo
                                 </span>
                                 {room.isRanked && (
-                                  <span className={`text-[9px] px-1.5 py-0.2 rounded border font-bold ${
-                                    isDark ? 'bg-rose-950 text-rose-300 border-rose-800/40' : 'bg-red-100 text-red-800 border-red-300'
+                                  <span className={`text-[10px] px-1.5 py-0.5 rounded border font-semibold ${
+                                    isDark ? 'bg-rose-950/60 text-rose-300 border-rose-800/40' : 'bg-red-50 text-red-800 border-red-200'
                                   }`}>
                                     Xếp Hạng
                                   </span>
                                 )}
                               </div>
-                              <div className={`flex items-center gap-2.5 text-xs ${isDark ? 'text-slate-400' : 'text-neutral-600 font-medium'}`}>
-                                <span className={`flex items-center gap-1 font-mono ${isDark ? 'text-amber-200/90' : 'text-amber-900 font-bold'}`}>
+                              <div className={`flex items-center gap-2 text-xs ${isDark ? 'text-slate-400' : 'text-neutral-600 font-medium'}`}>
+                                <span className={`flex items-center gap-1 font-mono tabular-nums ${isDark ? 'text-amber-200/90' : 'text-amber-900 font-bold'}`}>
                                   <Clock className="w-3 h-3 text-amber-500" />
                                   15 phút · 60s/nước
                                 </span>
                                 <span>·</span>
                                 {isFull ? (
-                                  <span className="text-emerald-500 font-bold flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                  <span className="text-emerald-500 font-semibold flex items-center gap-1">
                                     Đang thi đấu
                                   </span>
                                 ) : (
-                                  <span className={isDark ? "text-amber-300 font-medium" : "text-amber-900 font-bold"}>
-                                    🎲 Bốc thăm ngẫu nhiên (50/50)
+                                  <span className={isDark ? 'text-slate-300 font-medium' : 'text-slate-700 font-semibold'}>
+                                    Bốc thăm màu quân (50/50)
                                   </span>
                                 )}
                               </div>
@@ -778,8 +773,8 @@ export function OnlineLobbyModal({
                           rankedVariant === 'jieqi' ? 'text-rose-100/95' : 'text-slate-900/90'
                         }`}>
                           {roomState?.roomCode
-                            ? `⚡ Máy chủ đã mở bàn chờ #${roomState.roomCode} · Quét Elo ${Math.max(800, activeRankedElo - 100 - Math.min(300, searchSeconds * 15))}–${activeRankedElo + 100 + Math.min(300, searchSeconds * 15)} (Nhấn để Hủy)`
-                            : '⚡ Đang phát tín hiệu lên máy chủ ghép trận... (Nhấn để Hủy)'}
+                            ? `Máy chủ đã mở bàn chờ #${roomState.roomCode} · Quét Elo ${Math.max(800, activeRankedElo - 100 - Math.min(300, searchSeconds * 15))}–${activeRankedElo + 100 + Math.min(300, searchSeconds * 15)} (Nhấn để Hủy)`
+                            : 'Đang phát tín hiệu lên máy chủ ghép trận... (Nhấn để Hủy)'}
                         </span>
                       </>
                     ) : (
@@ -862,32 +857,34 @@ export function OnlineLobbyModal({
                         onClick={() => setSelectedVariant('standard')}
                         className={`py-2 px-3 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                           selectedVariant === 'standard'
-                            ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-md'
+                            ? 'bg-amber-600 text-white shadow-xs'
                             : isDark
                             ? 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                             : 'text-neutral-700 hover:text-neutral-950 hover:bg-black/5 font-semibold'
                         }`}
                       >
-                        <span>⚔️ Cờ Ngửa</span>
+                        <Swords className="w-3.5 h-3.5" />
+                        <span>Cờ Ngửa</span>
                       </button>
                       <button
                         type="button"
                         onClick={() => setSelectedVariant('jieqi')}
                         className={`py-2 px-3 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                           selectedVariant === 'jieqi'
-                            ? 'bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white shadow-md'
+                            ? 'bg-red-600 text-white shadow-xs'
                             : isDark
                             ? 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                             : 'text-neutral-700 hover:text-neutral-950 hover:bg-black/5 font-semibold'
                         }`}
                       >
-                        <span>🎭 Cờ Úp</span>
+                        <Drama className="w-3.5 h-3.5" />
+                        <span>Cờ Úp</span>
                       </button>
                     </div>
                   </div>
 
                   <div className={`flex items-center justify-between p-3 rounded-xl border ${
-                    isDark ? 'border-amber-900/30 bg-black/30' : 'border-[#d8cbb8] bg-white shadow-xs'
+                    isDark ? 'border-[#232D3F] bg-[#0E131B]' : 'border-slate-200 bg-slate-50'
                   }`}>
                     <div className="space-y-0.5">
                       <span className={`text-xs font-semibold ${isDark ? 'text-slate-200' : 'text-neutral-900 font-bold'}`}>Phòng công khai</span>
@@ -903,9 +900,10 @@ export function OnlineLobbyModal({
 
                   <button
                     onClick={() => onCreateRoom(playerName, 'random', 900, isPublic, true, currentElo, selectedVariant)}
-                    className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:from-amber-500 text-slate-950 font-bold text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
                   >
-                    <span>{selectedVariant === 'jieqi' ? '🎭 Tạo phòng Cờ Úp (15 phút, 60s/nước)' : '⚔️ Tạo phòng Cờ Tướng (15 phút, 60s/nước)'}</span>
+                    <Swords className="w-4 h-4" />
+                    <span>{selectedVariant === 'jieqi' ? 'Tạo phòng Cờ Úp (15 phút, 60s/nước)' : 'Tạo phòng Cờ Ngửa (15 phút, 60s/nước)'}</span>
                   </button>
                 </div>
               )}
@@ -1009,13 +1007,13 @@ export function OnlineLobbyModal({
                                 isDark ? 'hover:bg-white/5' : 'hover:bg-amber-500/10'
                               }`}
                             >
-                              <span className="text-center font-bold font-mono">
-                                {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
+                              <span className="text-center font-bold font-mono tabular-nums">
+                                #{idx + 1}
                               </span>
                               <div className="truncate">
                                 <span className={`font-semibold truncate ${isDark ? 'text-slate-200' : 'text-neutral-900 font-bold'}`}>{item.name}</span>
-                                <span className={`block text-[9px] ${isDark ? 'text-slate-400' : 'text-neutral-600 font-medium'}`}>
-                                  {rankInfo.badge} {rankInfo.tier} · {item.winRate}% thắng
+                                <span className={`block text-[10px] ${isDark ? 'text-slate-400' : 'text-neutral-600 font-medium'}`}>
+                                  {rankInfo.tier} · {item.winRate}% thắng
                                 </span>
                               </div>
                               <span className={`text-center font-mono font-bold ${

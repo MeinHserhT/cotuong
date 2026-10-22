@@ -89,42 +89,38 @@ export function getRankTier(elo: number, isDark: boolean = true): {
 } {
   let tier: RankTier = 'Tập Sự';
   let colorClass = isDark
-    ? 'text-emerald-300 border-emerald-400/50 bg-emerald-950/80'
-    : 'text-emerald-800 border-emerald-500/50 bg-emerald-50';
-  let badge = '🌱';
+    ? 'text-emerald-400 border-emerald-500/30 bg-emerald-950/40'
+    : 'text-emerald-700 border-emerald-600/30 bg-emerald-50';
+  const badge = '';
   let minElo = 800;
   let nextThreshold = 1250;
 
   if (elo >= 2000) {
     tier = 'Kỳ Vương';
     colorClass = isDark
-      ? 'text-amber-300 border-amber-400/50 bg-amber-950/80'
-      : 'text-amber-900 border-amber-600/50 bg-amber-100';
-    badge = '👑';
+      ? 'text-amber-300 border-amber-500/40 bg-amber-950/40'
+      : 'text-amber-800 border-amber-600/40 bg-amber-50';
     minElo = 2000;
     nextThreshold = 2500;
   } else if (elo >= 1700) {
     tier = 'Kiện Tướng';
     colorClass = isDark
-      ? 'text-rose-300 border-rose-400/50 bg-rose-950/80'
-      : 'text-rose-800 border-rose-500/50 bg-rose-50';
-    badge = '🏆';
+      ? 'text-rose-300 border-rose-500/40 bg-rose-950/40'
+      : 'text-rose-800 border-rose-600/40 bg-rose-50';
     minElo = 1700;
     nextThreshold = 2000;
   } else if (elo >= 1450) {
     tier = 'Cao Thủ';
     colorClass = isDark
-      ? 'text-purple-300 border-purple-400/50 bg-purple-950/80'
-      : 'text-purple-800 border-purple-500/50 bg-purple-50';
-    badge = '⚔️';
+      ? 'text-sky-300 border-sky-500/40 bg-sky-950/40'
+      : 'text-sky-800 border-sky-600/40 bg-sky-50';
     minElo = 1450;
     nextThreshold = 1700;
   } else if (elo >= 1250) {
     tier = 'Kỳ Thủ';
     colorClass = isDark
-      ? 'text-sky-300 border-sky-400/50 bg-sky-950/80'
-      : 'text-sky-800 border-sky-500/50 bg-sky-50';
-    badge = '🎖️';
+      ? 'text-slate-200 border-slate-500/40 bg-slate-800/60'
+      : 'text-slate-700 border-slate-400/50 bg-slate-100';
     minElo = 1250;
     nextThreshold = 1450;
   }
